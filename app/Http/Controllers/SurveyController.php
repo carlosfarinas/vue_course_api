@@ -59,4 +59,23 @@ class SurveyController extends Controller
             ];
         }
     }
+
+    public function deleteSurvey (Request $request): array
+    {
+        $data = $request->all();
+        if (Surveys::where('id', '=',$data['id'])->exists()) {
+            Surveys::where('id',$data['id'])->delete();
+            return [
+                "status" => true,
+                "message" => "Survey deleted",
+                "data" => []
+            ];
+        } else {
+            return [
+                "status" => false,
+                "message" => "No surveys were found with id: ". $data['id'],
+                "data" => []
+            ];
+        }
+    }
 }

@@ -26,5 +26,5 @@ Route::post('/users/create', [UserController::class, "addUser"]);
 // Surveys
 Route::get('/surveys/all', [SurveyController::class, "getSurveys"])->name('get-surveys');
 Route::post('/surveys/create', [SurveyController::class, "addSurvey"]);
-
+Route::delete('/surveys/delete', [SurveyController::class, "deleteSurvey"]);
 
