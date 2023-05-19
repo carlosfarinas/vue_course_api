@@ -45,7 +45,7 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy Amazon ECS task definition 
+      - name: Deploy Amazon ECS task definition
         uses: aws-actions/configure-aws-credentials@v1
         with:
           task-definition: ${{ steps.task-def-1.outputs.task-definition }}
