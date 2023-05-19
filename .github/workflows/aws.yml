@@ -1,7 +1,7 @@
 name: Deploy to Amazon ECS
 on:
   push:
-    :branches:
+    branches:
       - master
 env:
   AWS_REGION: us-east-1
@@ -27,7 +27,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Build, tag, and push image to Amazon ECR
-        id: build image
+        id: build-image
         env:
           ECR_REGISTRY: "715159127089.dkr.ecr.us-east-1.amazonaws.com"
           ECR_REPOSITORY: "app_repo"
