@@ -78,4 +78,28 @@ class SurveyController extends Controller
             ];
         }
     }
+
+    public function updateSurvey (Request $request): array
+    {
+        $data = $request->all();
+        if (Surveys::where('id', '=', $data['id'])->exists()) {
+            Surveys::where('id', '=',$data['id'])->update(
+                [
+                    "enteredName" => $data['enteredName'],
+                    "chosenRating"=> $data['chosenRating']
+                ]
+            );
+            return [
+                "status" => true,
+                "message" => "Survey updated successfully",
+                "data" => []
+            ];
+        } else {
+            return [
+                "status" => false,
+                "message" => "Survey not found",
+                "data" => []
+            ];
+        }
+    }
 }
