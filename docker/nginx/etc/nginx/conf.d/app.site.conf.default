@@ -1,0 +1,41 @@
+server {
+    server_tokens off;
+    listen ${NGINIX_LISTEN_PORT};
+    server_name ${NGINIX_SERVER_NAME};
+    root ${NGINIX_ROOT};
+    index index.php index.html index.htm;
+
+    server_name_in_redirect on;
+
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ /index.php?$query_string;
+
+        # Increase the request size to 64MB; this might be increase to a large size
+        # if the application is sending larger requests.
+        client_max_body_size 64m;
+    }
+
+    charset utf-8;
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass php;
+        fastcgi_index index.php;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_read_timeout 300;
+
+        # Increase the request size to 64MB; this might be increase to a large size
+        # if the application is sending larger requests.
+        client_max_body_size 64m;
+    }
+
+    location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
+       expires 7;
+    }
+
+}

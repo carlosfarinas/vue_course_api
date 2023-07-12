@@ -1,0 +1,12 @@
+*.idea
+vendor/*
+storage/app/*
+storage/debugbar/
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+bootstrap/cache/*
+storage/logs/*
+node_modules/*
+.git/
