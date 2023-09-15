@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/popo', function () {
     return "Popo";
 });
+
+Route::get('/{vue_capture?}', function () {
+    return view('home');
+})->where('vue', '[\/\w\.-]*');

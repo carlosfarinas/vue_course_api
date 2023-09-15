@@ -44,8 +44,8 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=admin
+            - MYSQL_PASSWORD=merlin
             - MYSQL_DATABASE=course
-            - MYSQL_PASSWORD=root
         networks:
             - backend
 
@@ -56,6 +56,42 @@ services:
         networks:
             - backend
 
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: pma
+        environment:
+            PMA_ARBITRARY: 1
+        restart: always
+        ports:
+            - "8081:80"
+        networks:
+            - backend
+        depends_on:
+            - app_db
+
+    rundeck:
+        image: rundeck/rundeck:4.15.0
+        volumes:
+            - rundeck:/home/rundeck/server/data
+#            - rundeck:/home/rundeck/server/data
+#            - rundeck-server-config:/home/rundeck/server/config
+#            - rundeck-projects:/home/rundeck/projects
+#            - rundeck-config:/home/rundeck/etc
+        environment:
+            - RUNDECK_GRAILS_URL=http://localhost:4440
+            - RUNDECK_LOGGING_AUDIT_ENABLED=0
+        networks:
+            - backend
+        depends_on:
+            - app_db
+        ports:
+            - target: 4440
+              published: 4440
+              protocol: tcp
+              mode: host
+volumes:
+    app_db:
+    rundeck:
 networks:
     frontend:
     backend:

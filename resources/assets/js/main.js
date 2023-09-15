@@ -4,8 +4,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import BaseCard from './components/UI/BaseCard.vue';
 import BaseButton from './components/UI/BaseButton.vue';
 
-import UsersList from './components/route_components/UsersList.vue';
-import TeamsList from './components/route_components/TeamsList.vue';
+import TeamsList from './components/teams/TeamsList.vue';
+import UsersList from './components/users/UsersList.vue';
+import TeamMembers from "./components/teams/TeamMembers.vue";
 
 import App from './App.vue';
 
@@ -14,7 +15,8 @@ const router = createRouter({
     routes: [
         { path: '/', component: TeamsList },
         { path: '/teams', component: TeamsList },
-        { path: '/users', component: UsersList }
+        { path: '/users', component: UsersList },
+        { path: '/teams/:teamId', component: TeamMembers }
     ],
     linkActiveClass: 'active'
 });
