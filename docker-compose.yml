@@ -60,14 +60,17 @@ services:
         image: phpmyadmin/phpmyadmin
         container_name: pma
         environment:
+            PMA_HOST: app_db
+            PMA_PORT: 3306
             PMA_ARBITRARY: 1
         restart: always
         ports:
             - "8081:80"
+        links:
+            - app_db
         networks:
             - backend
-        depends_on:
-            - app_db
+            - frontend
 
     rundeck:
         image: rundeck/rundeck:4.15.0
